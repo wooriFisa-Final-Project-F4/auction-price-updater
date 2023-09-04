@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuctionStatus {
+
   WAIT("wait"),
   PROGRESS("progress"),
   END("end");
