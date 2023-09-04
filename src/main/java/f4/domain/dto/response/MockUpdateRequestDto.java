@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MockUpdateRequestDTO {
+public class MockUpdateRequestDto {
 
   private int option;
   private Long preUserId;
