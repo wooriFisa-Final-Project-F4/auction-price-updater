@@ -1,24 +1,24 @@
 package f4.domain.dto.request;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AuctionRequestDto {
 
   @NotNull
   private Long productId;
-  @NotNull
+  @NotBlank
   private String price;
-  @NotNull
+  @NotBlank
   private String password;
 
 }

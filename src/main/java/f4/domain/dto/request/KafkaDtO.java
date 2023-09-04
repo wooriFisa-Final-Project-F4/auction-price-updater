@@ -1,21 +1,20 @@
 package f4.domain.dto.request;
 
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class KafkaDTO {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class KafkaDtO {
 
+  private Long userId;
   private String key;
   private LocalDateTime time;
-  private Long userId;
   private AuctionRequestDto request;
 }
