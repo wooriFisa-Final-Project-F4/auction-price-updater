@@ -14,14 +14,12 @@ public class GlobalExceptionHandler {
   @ExceptionHandler({CustomException.class})
   public ResponseEntity<?> customExceptionHandler(CustomException e) {
     log.error(
-        "time:{}, errorCode: {}, message: {}",
-        LocalDateTime.now(),
+        "errorCode: {}, message: {}",
         e.getCustomErrorCode().getCode(),
         e.getCustomErrorCode().getMessage());
 
     return new ResponseEntity<>(
         ErrorDetails.builder()
-            .time(LocalDateTime.now())
             .code(e.getCustomErrorCode().getCode())
             .message(e.getCustomErrorCode().getMessage())
             .build(),
