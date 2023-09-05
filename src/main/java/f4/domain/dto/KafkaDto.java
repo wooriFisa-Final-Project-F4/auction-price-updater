@@ -1,5 +1,6 @@
-package f4.domain.dto.request;
+package f4.domain.dto;
 
+import f4.domain.dto.request.AuctionRequestDto;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,5 +1,6 @@
-package f4.domain.dto.response;
+package f4.domain.dto;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,9 +8,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SendToHistoryDto {
 
   private Long productId;
   private String bidPrice;

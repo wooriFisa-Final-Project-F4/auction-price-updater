@@ -1,6 +1,6 @@
 package f4.domain.kafka;
 
-import f4.domain.dto.request.KafkaDto;
+import f4.domain.dto.KafkaDto;
 import f4.domain.service.impl.AuctionPriceServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
