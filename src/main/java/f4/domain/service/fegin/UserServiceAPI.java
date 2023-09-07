@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserServiceAPI {
 
   @GetMapping("/user/v1/feign/{userId}")
-  UserCheckResponseDto findByUserIdForOtherService(@PathVariable Long userId);
+  UserCheckResponseDto findByUserIdForOtherService(@PathVariable("userId") Long userId);
 }

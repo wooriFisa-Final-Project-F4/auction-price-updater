@@ -48,9 +48,10 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
     try {
       UserCheckResponseDto userCheckResponse = userServiceAPI.findByUserIdForOtherService(
           kafkaDto.getUserId());
+
       sendToHistoryDto.setUserEmail(userCheckResponse.getEmail());
 
-      // Mock API 요청
+//    Mock API 요청
       sendBidRequest(product, sendToHistoryDto);
 
       // Product 요청
@@ -121,7 +122,7 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
       return option1MockRequestBuilder(sendProductInfo);
     }
 
-    if (!product.getBidUserId().equals(sendProductInfo.getBidUserId())) {
+    if (product.getBidUserId().equals(sendProductInfo.getBidUserId())) {
       throw new CustomException(CustomErrorCode.CURRENT_BID_USER);
     }
 

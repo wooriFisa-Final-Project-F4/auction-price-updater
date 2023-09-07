@@ -11,13 +11,13 @@ public class Producer {
   @Value(value = "${kafka.produce.topic.name}")
   private String topicName;
 
-  private KafkaTemplate<String, SendToHistoryDto> kafkaTemplate;
+  private final KafkaTemplate<Long, SendToHistoryDto> kafkaTemplate;
 
-  public Producer(KafkaTemplate<String, SendToHistoryDto> kafkaTemplate) {
+  public Producer(KafkaTemplate<Long, SendToHistoryDto> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
   }
 
   public void produce(SendToHistoryDto data) {
-    kafkaTemplate.send(topicName, data.getProductName(), data);
+    kafkaTemplate.send(topicName, data.getProductId(), data);
   }
 }
