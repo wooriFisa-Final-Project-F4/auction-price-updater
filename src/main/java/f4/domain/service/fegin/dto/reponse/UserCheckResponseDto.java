@@ -1,5 +1,6 @@
-package f4.domain.dto.request;
+package f4.domain.service.fegin.dto.reponse;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -12,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AuctionRequestDto {
+public class UserCheckResponseDto {
 
   @NotNull
-  private Long productId;
+  private Long userId;
   @NotBlank
-  private String price;
+  private String username;
+  @Email
   @NotBlank
-  private String password;
-
+  private String Email;
 }
