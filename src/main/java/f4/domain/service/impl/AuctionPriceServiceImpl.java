@@ -2,26 +2,22 @@ package f4.domain.service.impl;
 
 import f4.domain.constant.AuctionRequestResult;
 import f4.domain.dto.KafkaDto;
-import f4.domain.service.fegin.dto.reponse.UserCheckResponseDto;
-import f4.domain.dto.response.MockUpdateRequestDto;
 import f4.domain.dto.SendToHistoryDto;
+import f4.domain.dto.response.MockUpdateRequestDto;
 import f4.domain.kafka.Producer;
 import f4.domain.persist.entity.Product;
 import f4.domain.persist.repository.ProductImageRepository;
 import f4.domain.persist.repository.ProductRepository;
 import f4.domain.service.AuctionPriceService;
+import f4.domain.service.fegin.MockAccountServiceAPI;
 import f4.domain.service.fegin.UserServiceAPI;
+import f4.domain.service.fegin.dto.reponse.UserCheckResponseDto;
 import f4.global.constant.CustomErrorCode;
 import f4.global.exception.CustomException;
-import feign.FeignException;
-import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @Service
@@ -32,9 +28,8 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
   private final ProductRepository productRepository;
   private final ProductImageRepository imageRepository;
   private final UserServiceAPI userServiceAPI;
+  private final MockAccountServiceAPI mockAccountServiceAPI;
 
-  @Value(value = "${mock.url}")
-  private String url;
 
   @Override
   @Transactional
@@ -64,7 +59,7 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
     } catch (CustomException e) {
       sendToHistoryDto.setBidStatus(AuctionRequestResult.FAIL.getResult());
       log.info("입찰에 실패하셨습니다. Error Message : {}", e.getCustomErrorCode().getMessage());
-    } catch (FeignException e) {
+    } catch (Exception e) {
       sendToHistoryDto.setBidStatus(AuctionRequestResult.ERROR.getResult());
       log.info("서버 에러가 발생했습니다. Error Message : {}", e.getMessage());
     } finally {
@@ -94,25 +89,13 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
         .build();
   }
 
-  public void restTemplateForBid(MockUpdateRequestDto mock) {
-    URI uri = UriComponentsBuilder
-        .fromUriString(url)
-        .path("/woori/account/v1/bid")
-        .encode()
-        .build()
-        .expand("Flature")
-        .toUri();
-    RestTemplate restTemplate = new RestTemplate();
-    restTemplate.put(uri, mock);
-  }
-
-  public void sendBidRequest(Product product, SendToHistoryDto sendProductInfo) {
+  public void sendBidRequest(Product product, SendToHistoryDto sendProductInfo) throws Exception{
     if (!comparePrice(product, sendProductInfo)) {
       throw new CustomException(CustomErrorCode.LESS_THEN_PRE_PRICE);
     }
 
     MockUpdateRequestDto mockUpdateRequestDto = standByBidOption(product, sendProductInfo);
-    restTemplateForBid(mockUpdateRequestDto);
+    mockAccountServiceAPI.bidInfoUpdate(mockUpdateRequestDto);
   }
 
   private MockUpdateRequestDto standByBidOption(Product product,
