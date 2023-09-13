@@ -42,4 +42,5 @@ Auction-Service에서 발행한 Kafka Event의 Value를 사용하여 입찰 결�
 - 입찰 성공 시 Mock API로 입찰 요청자와 기존 입찰자의 경매 사용 금액 변경 요청
 
 <br><br>
+
 ---
