@@ -84,7 +84,7 @@ public class AuctionPriceServiceImpl implements AuctionPriceService {
         .productName(product.getName())
         .productImage(imageUrl)
         .bidPrice(kafkaRequest.getRequest().getPrice())
-        .bidTime(kafkaRequest.getTime().toString())
+        .bidTime(kafkaRequest.getTime())
         .bidUserId(kafkaRequest.getUserId())
         .build();
   }
