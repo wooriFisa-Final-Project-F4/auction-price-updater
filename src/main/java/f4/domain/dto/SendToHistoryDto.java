@@ -1,5 +1,6 @@
 package f4.domain.dto;
 
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ public class SendToHistoryDto {
 
   private Long productId;
   private String bidPrice;
-  private String bidTime;
+  private LocalDateTime bidTime;
   private Long bidUserId;
   private String productName;
   private String productImage;
