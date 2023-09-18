@@ -18,6 +18,6 @@ public class Producer {
   }
 
   public void produce(SendToHistoryDto data) {
-    kafkaTemplate.send(topicName, data.getProductId(), data);
+    kafkaTemplate.send(topicName, data);
   }
 }
